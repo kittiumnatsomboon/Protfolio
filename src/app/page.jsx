@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Footer from "./components/Footer"
 import LenisScroll from "./components/Lenis"
-import Page from "./Home"
+import Page from "./(Pages)/Home/Home"
 export default function Home() {
   return (
     <>
