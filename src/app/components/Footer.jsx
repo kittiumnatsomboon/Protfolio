@@ -5,7 +5,7 @@ import { navLinks } from "../data/navLinks";
 export default function Footer() {
     return (
         <footer className="relative px-6 md:px-16 lg:px-24 xl:px-32 mt-40 w-full dark:text-slate-50">
-            <img className="absolute max-w-4xl w-full h-auto -mt-30 max-md:px-4 right-0 md:right-16 lg:right-24 xl:right-32 top-0 pointer-events-none"  alt="landing" width={930} height={340} />
+            <img className="absolute max-w-4xl w-full h-auto -mt-30 max-md:px-4 right-0 md:right-16 lg:right-24 xl:right-32 top-0 pointer-events-none"  alt="landing" width={930} height={340} fetchPriority="high" />
             <div className="flex flex-col md:flex-row justify-between w-full gap-10 border-b border-gray-200 dark:border-slate-700 pb-6">
                 <div className="md:max-w-114">
                     <a href="#!">
