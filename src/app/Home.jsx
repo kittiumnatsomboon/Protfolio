@@ -1,12 +1,12 @@
 "use client"
 import { VideoIcon } from "lucide-react";
 import Marquee from "react-fast-marquee";
-import { companiesLogo } from "../data/companiesLogo";
-import { featuresData } from "../data/featuresData";
-import SectionTitle from "../components/SectionTitle";
-import { useThemeContext } from "../context/ThemeContext";
-import { FaqSection } from "../sections/FaqSection";
-import Pricing from "../sections/Pricing";
+import { companiesLogo } from "./data/companiesLogo";
+import { featuresData } from "./data/featuresData";
+import SectionTitle from "./components/SectionTitle";
+import { useThemeContext } from "./context/ThemeContext";
+import { FaqSection } from "./sections/FaqSection";
+import Pricing from "./sections/Pricing";
 
 export default function Page() {
     const { theme } = useThemeContext();

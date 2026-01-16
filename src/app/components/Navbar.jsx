@@ -2,7 +2,7 @@
 Link
 import { MenuIcon, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { navLinks } from "../data/navLinks";
+import { Navbarmenu } from "../data/Navbarmenu";
 import Link from "next/link";
 import { useThemeContext } from "../context/ThemeContext";
 import ThemeToggle from "./ThemeToggle";
@@ -20,21 +20,21 @@ export default function Navbar() {
 
     return (
         <nav className={`flex items-center justify-between fixed z-50 top-0 w-full px-6 md:px-16 lg:px-24 xl:px-32 py-4 ${openMobileMenu ? '' : 'backdrop-blur'}`}>
-            <a href="#!">
+            <a href="/">
                 <img className="h-9 md:h-9.5 w-auto shrink-0" src={theme === "dark" ? "./assets/logo-light.svg" : "./assets/logo-dark.svg"}  alt="Logo" width={140} height={40} fetchPriority="high" />
             </a>
             <div className="hidden items-center md:gap-8 lg:gap-9 md:flex lg:pl-20">
-                {navLinks.map((link) => (
-                    <Link key={link.name} href={link.href} className="hover:text-slate-600 dark:hover:text-slate-300">
-                        {link.name}
+                {Navbarmenu.map((link) => (
+                    <Link key={link.id} href={link.link} className="hover:text-slate-600 dark:hover:text-slate-300">
+                        {link.label}
                     </Link>
                 ))}
             </div>
             {/* Mobile menu */}
             <div className={`fixed inset-0 flex flex-col items-center justify-center gap-6 text-lg font-medium bg-white/60 dark:bg-black/40 backdrop-blur-md md:hidden transition duration-300 ${openMobileMenu ? "translate-x-0" : "-translate-x-full"}`}>
-                {navLinks.map((link) => (
-                    <Link key={link.name} href={link.href}>
-                        {link.name}
+                {Navbarmenu.map((link) => (
+                    <Link key={link.id} href={link.link}>
+                        {link.label}
                     </Link>
                 ))}
                 <button>
