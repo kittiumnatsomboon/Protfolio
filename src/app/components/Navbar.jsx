@@ -4,10 +4,11 @@ import { MenuIcon, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { navLinks } from "../data/navLinks";
 import Link from "next/link";
-
+import { useThemeContext } from "../context/ThemeContext";
+import ThemeToggle from "./ThemeToggle";
 export default function Navbar() {
     const [openMobileMenu, setOpenMobileMenu] = useState(false);
-    
+    const { theme } = useThemeContext();
 
     useEffect(() => {
         if (openMobileMenu) {
@@ -20,7 +21,7 @@ export default function Navbar() {
     return (
         <nav className={`flex items-center justify-between fixed z-50 top-0 w-full px-6 md:px-16 lg:px-24 xl:px-32 py-4 ${openMobileMenu ? '' : 'backdrop-blur'}`}>
             <a href="#!">
-                <img className="h-9 md:h-9.5 w-auto shrink-0"  alt="Logo" width={140} height={40} />
+                <img className="h-9 md:h-9.5 w-auto shrink-0" src={theme === "dark" ? "./assets/logo-light.svg" : "./assets/logo-dark.svg"}  alt="Logo" width={140} height={40} />
             </a>
             <div className="hidden items-center md:gap-8 lg:gap-9 md:flex lg:pl-20">
                 {navLinks.map((link) => (
@@ -44,6 +45,7 @@ export default function Navbar() {
                 </button>
             </div>
             <div className="flex items-center gap-4">
+                <ThemeToggle />
                 <button className="hidden md:block hover:bg-slate-100 dark:hover:bg-purple-950 transition px-4 py-2 border border-purple-600 rounded-md">
                     Sign in
                 </button>
