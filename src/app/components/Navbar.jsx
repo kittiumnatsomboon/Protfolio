@@ -16,7 +16,7 @@ export default function Navbar() {
 
     const [open, setopen] = useState(false);
     const toggleDropdown = () => setopen(!open);
-    
+
     useEffect(() => {
         if (openMobileMenu) {
             document.body.classList.add("max-md:overflow-hidden");
@@ -75,6 +75,31 @@ export default function Navbar() {
                         {link.label}
                     </Link>
                 ))}
+                <button
+                    onClick={toggleDropdown}
+                    className="inline-flex justify-center w-full text-lg font-medium"
+                >
+                    รายการเนื้อหา
+                    <svg className="-mr-1 ml-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                </button>
+                {open && (
+                    <div className="left-0 mt-2 w-56 text-center  ring-white  z-10">
+                        <div className="py-1">
+                            {menuItems.map((items) => (
+                                <li key={items.id} className='list-none'>
+                                    <Link
+                                        href={items.link}
+                                        className="block px-4 py-2 text-lg font-medium"
+                                    >
+                                        {items.label}
+                                    </Link>
+                                </li>
+                            ))}
+                        </div>
+                    </div>
+                )}
 
                 <button>
                     สมัครสมาชิก
