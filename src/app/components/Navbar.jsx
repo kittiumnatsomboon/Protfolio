@@ -101,25 +101,25 @@ export default function Navbar() {
                     </div>
                 )}
 
-                <button>
+                <Link href="/Register">
                     สมัครสมาชิก
-                </button>
-                <button>
+                </Link>
+                <Link href="/Login">
                     เข้าสู่ระบบ
-                </button>
+                </Link>
                 <button className="aspect-square size-10 p-1 items-center justify-center bg-purple-600 hover:bg-purple-700 transition text-white rounded-md flex" onClick={() => setOpenMobileMenu(false)}>
                     <XIcon />
                 </button>
             </div>
             <div className="flex items-center gap-4">
                 <ThemeToggle />
-                <button className="hidden md:block hover:bg-slate-100 dark:hover:bg-purple-950 transition px-4 py-2 border border-purple-600 rounded-md">
-                    เข้าสู่ระบบ
-                </button>
+                <Link href="/Register" className="hidden md:block hover:bg-slate-100 dark:hover:bg-purple-950 transition px-4 py-2 border border-purple-600 rounded-md">
+                   สมัครสมาชิก
+                </Link>
 
-                <button className="hidden md:block hover:bg-slate-100 dark:hover:bg-purple-950 transition px-4 py-2 border border-purple-600 rounded-md">
-                    สมัครสมาชิก
-                </button>
+                <Link href="/Login" className="hidden md:block hover:bg-slate-100 dark:hover:bg-purple-950 transition px-4 py-2 border border-purple-600 rounded-md">
+                    เข้าสู่ระบบ
+                </Link>
 
 
                 <button onClick={() => setOpenMobileMenu(!openMobileMenu)} className="md:hidden">
