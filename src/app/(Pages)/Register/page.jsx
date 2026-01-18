@@ -51,7 +51,6 @@ export default function Register() {
                             },
                             body: JSON.stringify(values)
                         })
-                        console.log(values)
                         const respone = await res.json();
                         setMessage(respone.message || respone.error)
                     }}
