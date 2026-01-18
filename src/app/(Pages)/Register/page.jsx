@@ -95,7 +95,7 @@ export default function Register() {
                                 viewport={{ once: true }}
                                 transition={{ type: "spring", stiffness: 320, damping: 70, mass: 1 }}
                             >
-                                <p className="mb-2 font-medium">วันเดือนปีเกิด</p>
+                                <p className="mb-2 font-medium dark:text-white text-black">วันเดือนปีเกิด</p>
                                 <div className='flex items-center pl-3 rounded-lg border border-slate-700 focus-within:border-pink-500'>
 
                                     <DatePicker
