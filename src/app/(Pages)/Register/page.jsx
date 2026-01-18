@@ -39,7 +39,7 @@ export default function Register() {
     return (
         <>
             <div className="px-4 md:px-16 lg:px-24 xl:px-32">
-                <SectionTitle text2="สมัครสมาชิก" text3="สร้างบัญชีสำหรับใช้เข้าสู่ระบบเพื่อดำเนินการต่อ" />
+                <SectionTitle text2="สมัครสมาชิก" />
                 <Formik
                     initialValues={{ firstname: '', lastname: '', dateofbirth: '', email: '', password: '', confirmpassword: '' }}
                     validationSchema={SignupSchema} // Pass the Yup schema here
@@ -99,7 +99,7 @@ export default function Register() {
                                 <div className='flex items-center pl-3 rounded-lg border border-slate-700 focus-within:border-pink-500'>
 
                                     <DatePicker
-                                        className="w-full p-3 outline-none"
+                                        className="w-full p-3 outline-none dark:text-white text-black"
                                         placeholderText="กรุณาระบุวันเดือนปีเกิด"
                                         yearDropdownItemNumber={100}
                                         scrollableYearDropdown
