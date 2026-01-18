@@ -118,7 +118,7 @@ export default function Register() {
                                         name="dateofbirth"
                                     />
                                 </div>
-                                
+
                             </motion.div>
                             {/* อีเมลล์ */}
                             <motion.div
@@ -166,6 +166,7 @@ export default function Register() {
                                 ) : null}
                             </motion.div>
                             <Button children="สมัครสมาชิก" />
+                            
                             {message}
                         </Form>
                     )}
