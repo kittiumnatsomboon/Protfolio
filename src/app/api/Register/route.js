@@ -12,7 +12,7 @@ export async function POST(request) {
             return Response.json({ error: 'อีเมลหรือชื่อ-นามสกุลถูกใช้งานแล้ว' }); // Must return here
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        const dateOnly = dateofbirth.split('T')[0];
+        const dateOnly = dateofbirth?.split('T')[0];
         await pool.query('INSERT INTO users (firstname,lastname,Dateofbirth,email, password) VALUES (?,?,?,?,?)',
             [firstname, lastname, dateOnly, email, hashedPassword]);
             // ส่งเมลล์หลังสมัคร
