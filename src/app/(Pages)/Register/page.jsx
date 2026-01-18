@@ -47,7 +47,7 @@ export default function Register() {
                         const res = await fetch('/api/Register/', {
                             method: 'POST',
                             headers: {
-                                'Content-Type': 'application/json', // บอกเซิร์ฟเวอร์ว่าส่งข้อมูล JSON
+                                'Content-Type': 'application/json'
                             },
                             body: JSON.stringify(values)
                         })
@@ -165,7 +165,7 @@ export default function Register() {
                                 ) : null}
                             </motion.div>
                             <Button children="สมัครสมาชิก" />
-                            
+
                             {message}
                         </Form>
                     )}
