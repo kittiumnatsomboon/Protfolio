@@ -18,8 +18,6 @@ const SignupSchema = Yup.object().shape({
         .min(5, 'กรุณาระบุตัวอักษรขั้นต่ำ 5 ตัวอักษร')
         .max(50, 'อักษรสูงสุด 50 ตัวอักษร')
         .required('กรุณาระบุข้อมูล'),
-    dateofbirth: Yup.date()
-        .required('กรุณาระบุวันเดือนปีเกิด'),
     email: Yup.string()
         .email('กรุณาระบุอีเมลล์')
         .required('กรุณาระบุข้อมูล'),
@@ -43,11 +41,19 @@ export default function Register() {
             <div className="px-4 md:px-16 lg:px-24 xl:px-32">
                 <SectionTitle text2="สมัครสมาชิก" text3="สร้างบัญชีสำหรับใช้เข้าสู่ระบบเพื่อดำเนินการต่อ" />
                 <Formik
-                    initialValues={{ firstname: '', lastname: '', dateofbirth: '', email: '', password: '' , confirmpassword:'' }}
+                    initialValues={{ firstname: '', lastname: '', dateofbirth: '', email: '', password: '', confirmpassword: '' }}
                     validationSchema={SignupSchema} // Pass the Yup schema here
-                    onSubmit={values => {
-                        // Handle form submission
-                        console.log(values);
+                    onSubmit={async (values, { setSubmitting }) => {
+                        const res = await fetch('/api/Register/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json', // บอกเซิร์ฟเวอร์ว่าส่งข้อมูล JSON
+                            },
+                            body: JSON.stringify(values)
+                        })
+                        console.log(values)
+                        const respone = await res.json();
+                        setMessage(respone.message || respone.error)
                     }}
                 >
                     {({ values, errors, touched, handleChange, handleBlur, setFieldValue }) => (
@@ -100,21 +106,19 @@ export default function Register() {
                                         scrollableYearDropdown
                                         showYearDropdown
                                         showMonthDropdown
-                                        selected={values.Dateofbirth || null}
+                                        selected={values.dateofbirth || null}
                                         onChange={
                                             (date) =>
                                                 setFieldValue(
-                                                    'Dateofbirth',
+                                                    'dateofbirth',
                                                     date
                                                 )
                                         }
                                         dateFormat="yyyy-MM-dd"
-                                        name="Dateofbirth"
+                                        name="dateofbirth"
                                     />
                                 </div>
-                                {errors.dateofbirth && touched.dateofbirth ? (
-                                    <div className="text-red-500">{errors.dateofbirth}</div>
-                                ) : null}
+                                
                             </motion.div>
                             {/* อีเมลล์ */}
                             <motion.div
@@ -153,8 +157,8 @@ export default function Register() {
                                 viewport={{ once: true }}
                                 transition={{ type: "spring", stiffness: 320, damping: 70, mass: 1 }}
                             >
-                                <FieldInput label="confirmpassword" placeholder="กรุณายืนยันรหัสผ่าน" type="password" children="ยืนยันรหัสผ่าน" 
-                                onChange={handleChange}
+                                <FieldInput label="confirmpassword" placeholder="กรุณายืนยันรหัสผ่าน" type="password" children="ยืนยันรหัสผ่าน"
+                                    onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
                                 {errors.confirmpassword && touched.confirmpassword ? (
@@ -162,6 +166,7 @@ export default function Register() {
                                 ) : null}
                             </motion.div>
                             <Button children="สมัครสมาชิก" />
+                            {message}
                         </Form>
                     )}
                 </Formik>
