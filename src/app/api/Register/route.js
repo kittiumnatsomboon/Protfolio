@@ -19,6 +19,7 @@ export async function POST(request) {
         return Response.json({ message: 'สมัครสมาชิกสำเร็จ' });
     } catch (error) {
         // จัดการกรณีที่ส่ง JSON มาผิดพลาด
+        console.error(error);
         return Response.json({ error: "ข้อมูลที่ส่งมาไม่ใช่ JSON ที่ถูกต้อง" }, { status: 400 });
     }
 }
