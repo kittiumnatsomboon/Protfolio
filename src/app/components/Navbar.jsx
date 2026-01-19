@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useThemeContext } from "../context/ThemeContext";
 import ThemeToggle from "./ThemeToggle";
 import { menuItems } from '../data/MenuItems';
-
+import { useAuth } from '../context/Authcontext';
 
 
 export default function Navbar() {
@@ -17,6 +17,7 @@ export default function Navbar() {
     const [open, setopen] = useState(false);
     const toggleDropdown = () => setopen(!open);
 
+    const { user, logout } = useAuth();
     useEffect(() => {
         if (openMobileMenu) {
             document.body.classList.add("max-md:overflow-hidden");
@@ -28,7 +29,7 @@ export default function Navbar() {
     return (
         <nav className={`flex items-center justify-between fixed z-50 top-0 w-full px-6 md:px-16 lg:px-24 xl:px-32 py-4 ${openMobileMenu ? '' : 'backdrop-blur'}`}>
             <a href="/">
-               พอตฟอริโอ้.com 
+                พอตฟอริโอ้.com
             </a>
             <div className="hidden items-center  md:gap-8 lg:gap-9 md:flex lg:pl-20">
                 {Navbarmenu.map((menu) => (
@@ -100,27 +101,48 @@ export default function Navbar() {
                         </div>
                     </div>
                 )}
-
-                <Link href="/Register">
-                    สมัครสมาชิก
-                </Link>
-                <Link href="/Login">
-                    เข้าสู่ระบบ
-                </Link>
+                {user ? (
+                    <>
+                        <Link href="/Register">
+                            {user.firstname}
+                        </Link>
+                    </>
+                ) : (
+                    <>
+                        <Link href="/Register">
+                            สมัครสมาชิก
+                        </Link>
+                        <Link href="/Login">
+                            เข้าสู่ระบบ
+                        </Link>
+                    </>
+                )}
                 <button className="aspect-square size-10 p-1 items-center justify-center bg-purple-600 hover:bg-purple-700 transition text-white rounded-md flex" onClick={() => setOpenMobileMenu(false)}>
                     <XIcon />
                 </button>
             </div>
             <div className="flex items-center gap-4">
                 <ThemeToggle />
-                <Link href="/Register" className="hidden md:block hover:bg-slate-100 dark:hover:bg-purple-950 transition px-4 py-2 border border-purple-600 rounded-md">
-                   สมัครสมาชิก
-                </Link>
+                {
+                    user ? (
+                        <>
+                            <Link href="#" className="hidden md:block hover:bg-slate-100 dark:hover:bg-purple-950 transition px-4 py-2 border border-purple-600 rounded-md">
+                                {user.firstname}
+                            </Link>
+                        </>
+                    ) : (
+                        <>
 
-                <Link href="/Login" className="hidden md:block hover:bg-slate-100 dark:hover:bg-purple-950 transition px-4 py-2 border border-purple-600 rounded-md">
-                    เข้าสู่ระบบ
-                </Link>
+                            <Link href="/Register" className="hidden md:block hover:bg-slate-100 dark:hover:bg-purple-950 transition px-4 py-2 border border-purple-600 rounded-md">
+                                สมัครสมาชิก
+                            </Link>
 
+                            <Link href="/Login" className="hidden md:block hover:bg-slate-100 dark:hover:bg-purple-950 transition px-4 py-2 border border-purple-600 rounded-md">
+                                เข้าสู่ระบบ
+                            </Link>
+                        </>
+                    )
+                }
 
                 <button onClick={() => setOpenMobileMenu(!openMobileMenu)} className="md:hidden">
                     <MenuIcon size={26} className="active:scale-90 transition" />
