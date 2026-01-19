@@ -8,6 +8,8 @@ import Link from "next/link";
 import { Lock } from "lucide-react";
 import { AuthProvider,useAuth } from "@/app/context/Authcontext";
 import { useRouter } from 'next/navigation';
+import GoogleIcon from '@mui/icons-material/Google';
+import FacebookIcon from '@mui/icons-material/Facebook';
 const SigninSchema = Yup.object().shape({
     email: Yup.string()
         .email('กรุณาระบุอีเมลล์')
@@ -72,6 +74,10 @@ export default function Login() {
                                         {message}
                                         <Button children="เข้าสู่ระบบ" />
                                         <Link href="#" className="text-red-600">ลืมรหัสผ่าน</Link>
+                                    </div>
+                                    <div className="flex gap-3 pt-3 items-center">
+                                        <GoogleIcon />
+                                        <FacebookIcon/>
                                     </div>
                                 </Form>
                             )}
