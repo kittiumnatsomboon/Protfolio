@@ -6,7 +6,8 @@ import { useState } from "react";
 import * as Yup from 'yup';
 import Link from "next/link";
 import { Lock } from "lucide-react";
-
+import { NextResponse } from "next/server";
+import { AuthProvider,useAuth } from "@/app/context/Authcontext";
 const SigninSchema = Yup.object().shape({
     email: Yup.string()
         .email('กรุณาระบุอีเมลล์')
@@ -19,6 +20,8 @@ const SigninSchema = Yup.object().shape({
 export default function Login() {
 
     const [message, setMessage] = useState('');
+    const{login} = useAuth();
+    console.log(login)
     return (
         <>
             <div className='flex items-center justify-center min-h-screen'>
@@ -38,7 +41,6 @@ export default function Login() {
                                 })
                                 const respone = await res.json();
                                 setMessage(respone.message || respone.error)
-                                
                             }}
                         >
                             {({ values, errors, touched, handleChange, handleBlur }) => (
@@ -65,6 +67,7 @@ export default function Login() {
                                         ) : null}
                                     </div>
                                     <div className="flex gap-3 pt-3 items-center">
+                                        {message}
                                         <Button children="เข้าสู่ระบบ" />
                                         <Link href="#" className="text-red-600">ลืมรหัสผ่าน</Link>
                                     </div>
