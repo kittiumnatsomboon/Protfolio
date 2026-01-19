@@ -5,14 +5,14 @@ import { jwtDecode } from "jwt-decode";
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-    const [token, setToken] = useState(
-        () => localStorage.getItem("token")
-    );
+    
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
     // 🔹 run once ตอน refresh
     useEffect(() => {
+        const [token, setToken] = useState(null);
+        setToken(localStorage.getItem("token"));
         if (!token) {
             setUser(null);
             setLoading(false);
