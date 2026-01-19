@@ -6,8 +6,8 @@ import { useState } from "react";
 import * as Yup from 'yup';
 import Link from "next/link";
 import { Lock } from "lucide-react";
-import { NextResponse } from "next/server";
 import { AuthProvider,useAuth } from "@/app/context/Authcontext";
+import { useRouter } from 'next/navigation';
 const SigninSchema = Yup.object().shape({
     email: Yup.string()
         .email('กรุณาระบุอีเมลล์')
@@ -21,7 +21,7 @@ export default function Login() {
 
     const [message, setMessage] = useState('');
     const{login} = useAuth();
-    console.log(login)
+    const router = useRouter();
     return (
         <>
             <div className='flex items-center justify-center min-h-screen'>
@@ -41,6 +41,8 @@ export default function Login() {
                                 })
                                 const respone = await res.json();
                                 setMessage(respone.message || respone.error)
+                                login(respone.token)
+                                router.push('/');
                             }}
                         >
                             {({ values, errors, touched, handleChange, handleBlur }) => (
