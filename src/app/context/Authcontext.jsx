@@ -5,61 +5,66 @@ import { jwtDecode } from "jwt-decode";
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(
-    () => localStorage.getItem("token")
-  );
-  
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+    const [token, setToken] = useState(
+        () => localStorage.getItem("token")
+    );
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-  // 🔹 run once ตอน refresh
-  useEffect(() => {
-    if (!token) {
-      setUser(null);
-      setLoading(false);
-      return;
+    // 🔹 run once ตอน refresh
+    useEffect(() => {
+        if (!token) {
+            setUser(null);
+            setLoading(false);
+            return;
+        }
+
+        try {
+            const decoded = jwtDecode(token);
+
+            if (decoded.exp * 1000 < Date.now()) {
+                logout(); // รวม logic ไว้ที่เดียว
+            } else {
+                setUser({
+                    userid: decoded.userid,
+                    email: decoded.email,
+                    firstname: decoded.firstname,
+                    lastname: decoded.lastname,
+                    usertype: decoded.usertype
+                });
+            }
+        } catch {
+            logout();
+        }
+
+        setLoading(false);
+    }, [token]);
+
+    const login = (token) => {
+        if (typeof window !== 'undefined') {
+        localStorage.setItem('token',token);
+        const data = localStorage.getItem('token');
+        console.log(data);
     }
+        localStorage.setItem("token", token);
+        setToken(token);
 
-    try {
-      const decoded = jwtDecode(token);
+    };
 
-      if (decoded.exp * 1000 < Date.now()) {
-        logout(); // รวม logic ไว้ที่เดียว
-      } else {
-        setUser({
-          userid: decoded.userid,
-          email: decoded.email,
-          firstname: decoded.firstname,
-          lastname: decoded.lastname,
-          usertype: decoded.usertype
-        });
-      }
-    } catch {
-      logout();
-    }
 
-    setLoading(false);
-  }, [token]);
+    const logout = () => {
 
-  const login = (token) => {
-    localStorage.setItem("token", token);
-    setToken(token);
-  };
-  
+        localStorage.removeItem("token");
+        setToken(null);
+        setUser(null);
+    };
+    if (loading) return null; // หรือ spinner
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    setToken(null);
-    setUser(null);
-    navigate("login")
-  };
-  if (loading) return null; // หรือ spinner
-
-  return (
-    <AuthContext.Provider value={{ token, user, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+    return (
+        <AuthContext.Provider value={{ token, user, login, logout }}>
+            {children}
+        </AuthContext.Provider>
+    );
 };
 
 export const useAuth = () => useContext(AuthContext);
